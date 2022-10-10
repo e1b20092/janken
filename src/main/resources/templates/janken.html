@@ -7,10 +7,12 @@
 </head>
 
 <body>
-  <form action="/Janken" method="post">
-    <input type="text" name="userName" />
-    <input type="submit" value="入室">
-  </form>
+  <h1>Janken GAME!</h1>
+  <p>
+  <div th:if="${userName}">
+    Hi [[${userName}]]
+  </div>
+  </p>
 </body>
 
 </html>
