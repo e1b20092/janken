@@ -12,6 +12,16 @@
   <div th:if="${userName}">
     Hi [[${userName}]]
   </div>
+  <a href="/gu">ぐー</a>
+  <a href="/cho">ちょき</a>
+  <a href="/pa">ぱー</a>
+  <div th:if="${result}">
+    <div th:if="${te}">
+      あなたの手 [[${te}]]<br>
+      相手の手 Gu<br>
+      結果 [[${result}]]<br>
+    </div>
+  </div>
   </p>
 </body>
 
