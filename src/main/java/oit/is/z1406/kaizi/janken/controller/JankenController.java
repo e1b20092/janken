@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class JankenController {
 
-  @GetMapping("/Janken")
+  @GetMapping("/janken")
   public String Janken() {
     return "janken";
   }
 
-  @PostMapping("/Janken")
+  @PostMapping("/janken")
   public String sample(@RequestParam String userName, ModelMap model) {
     model.addAttribute("userName", userName);
     return "janken.html";
