@@ -12,7 +12,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @EnableWebSecurity
-public class Sample3AuthConfiguration {
+public class JankenAuthConfiguration {
 
   @Bean
   public InMemoryUserDetailsManager userDetailsService() {
@@ -29,8 +29,13 @@ public class Sample3AuthConfiguration {
         .password("$2y$10$IIpjHXYKBvhprEMCGrPDv.aQmVGXLLYRNXtFW9QhFODJB73JjmqM6")
         .roles("USER")
         .build();
+    UserDetails user3 = users
+        .username("ほんだ")
+        .password("$2y$10$zv2IW4dALWiZar/raQidC.Hj.LHA6t9yNkh7tMpSj8Ne3IJCcOGCi")
+        .roles("USER")
+        .build();
     // 生成したユーザをImMemoryUserDetailsManagerに渡す（いくつでも良い）
-    return new InMemoryUserDetailsManager(user1, user2);
+    return new InMemoryUserDetailsManager(user1, user2, user3);
   }
 
   @Bean
