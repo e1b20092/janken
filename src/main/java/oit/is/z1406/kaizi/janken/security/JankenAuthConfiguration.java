@@ -47,6 +47,8 @@ public class JankenAuthConfiguration {
         .mvcMatchers("/janken/**").authenticated();
 
     http.logout().logoutSuccessUrl("/");
+    http.csrf().disable();
+    http.headers().frameOptions().disable();
     return http.build();
   }
 
