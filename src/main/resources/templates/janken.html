@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/schema/security">
 
 <head>
   <meta charset="utf-8">
@@ -12,9 +12,13 @@
 
   <p>
     エントリー
-  <ul>
-    <li th:each="user : ${room.users}">[[${user}]]</li>
-  </ul>
+  <p th:if="${User}">
+  <div th:each="user,stat:${User}">
+    <tr>
+      <td>・[[${user.userName}]] </td>
+    </tr>
+  </div>
+  </p>
   <a href="/jankengame?hand=Gu&re=Draw">ぐー</a>
   <a href="/jankengame?hand=Cho&re=Lose">ちょき</a>
   <a href="/jankengame?hand=Pa&re=Win">ぱー</a>
