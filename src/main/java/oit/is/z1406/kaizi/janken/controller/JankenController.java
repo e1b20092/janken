@@ -10,7 +10,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 //import org.springframework.web.bind.annotation.PathVariable;
 //import org.springframework.web.bind.annotation.PostMapping;
-//import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import oit.is.z1406.kaizi.janken.model.Entry;
@@ -32,11 +32,13 @@ public class JankenController {
   @GetMapping("/janken")
   public String sample1(Principal prin, ModelMap model) {
     String loginUser = prin.getName();
+    model.addAttribute("loginUser", loginUser);
+
     this.room.addUser(loginUser);
     model.addAttribute("room", this.room);
 
     ArrayList<User> user = userMapper.selectAllUserName();
-    model.addAttribute("User", user);
+    model.addAttribute("users", user);
 
     ArrayList<Match> matches = matchMapper.selectAllMatches();
     model.addAttribute("Match", matches);
@@ -54,5 +56,14 @@ public class JankenController {
     model.addAttribute("te", hand);
     model.addAttribute("result", res);
     return "janken.html";
+  }
+
+  @GetMapping("/match")
+  public String sample3(@RequestParam Integer id, Principal prin,ModelMap model) {
+    String loginUser = prin.getName();
+    model.addAttribute("loginUser", loginUser);
+    User users = userMapper.selectById(id);
+    model.addAttribute("users", users);
+    return "match.html";
   }
 }
