@@ -15,6 +15,23 @@
     [[${loginUser}]] V.S. [[${users.userName}]]
   </h2>
   </p>
+
+  <a th:href="@{/jankengame(id=${users.id},hand=Gu,re=Draw)}">ぐー</a>
+  <a th:href="@{/jankengame(id=${users.id},hand=Choki,re=Lose)}">ちょき</a>
+  <a th:href="@{/jankengame(id=${users.id},hand=Pa,re=Win)}">ぱー</a>
+
+  <p>
+  <div th:if="${result}">
+    <div th:if="${te}">
+      あなたの手 [[${te}]]<br>
+      相手の手 Gu<br>
+      結果 [[${result}]]<br>
+    </div>
+  </div>
+  </p>
+
+  <a href="/janken">もどる</a>
+
 </body>
 
 </html>
