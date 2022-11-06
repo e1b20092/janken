@@ -18,6 +18,8 @@ import oit.is.z1406.kaizi.janken.model.User;
 import oit.is.z1406.kaizi.janken.model.UserMapper;
 import oit.is.z1406.kaizi.janken.model.Match;
 import oit.is.z1406.kaizi.janken.model.MatchMapper;
+import oit.is.z1406.kaizi.janken.model.MatchInfo;
+import oit.is.z1406.kaizi.janken.model.MatchInfoMapper;
 
 @Controller
 public class JankenController {
@@ -28,6 +30,8 @@ public class JankenController {
   UserMapper userMapper;
   @Autowired
   MatchMapper matchMapper;
+  @Autowired
+  MatchInfoMapper matchinfoMapper;
 
   @GetMapping("/janken")
   public String sample1(Principal prin, ModelMap model) {
@@ -46,7 +50,7 @@ public class JankenController {
     return "janken.html";
   }
 
-  @GetMapping("/jankengame")
+  @GetMapping("/wait")
   public String sample2(@RequestParam Integer id, @RequestParam String hand, @RequestParam String re, Principal prin,
       ModelMap model) {
     model.addAttribute("te", hand);
@@ -63,17 +67,16 @@ public class JankenController {
     User users = userMapper.selectById(id);
     model.addAttribute("users", users);
 
-    Match match = new Match();
+    MatchInfo matchinfo = new MatchInfo();
     User user1 = userMapper.selectByName(loginUser);
     User user2 = userMapper.selectById(id);
-    match.setUser1(user1.getId());
-    match.setUser2(user2.getId());
-    match.setUser1Hand(hand);
-    match.setUser2Hand("Gu");
+    matchinfo.setUser1(user1.getId());
+    matchinfo.setUser2(user2.getId());
+    matchinfo.setUser1Hand(hand);
+    matchinfo.setisActive(true);
+    matchinfoMapper.insertMatchInfo(matchinfo);
 
-    matchMapper.insertMatch(match);
-
-    return "match.html";
+    return "wait.html";
   }
 
   @GetMapping("/match")
@@ -83,6 +86,15 @@ public class JankenController {
 
     User users = userMapper.selectById(id);
     model.addAttribute("users", users);
+
+    // Match match = new Match();
+    // User user1 = userMapper.selectByName(loginUser);
+    // User user2 = userMapper.selectById(id);
+    // match.setUser1(user1.getId());
+    // match.setUser2(user2.getId());
+    // match.setUser1Hand(hand);
+    // match.setUser2Hand("Gu");
+    // matchMapper.insertMatch(match);
 
     return "match.html";
   }
