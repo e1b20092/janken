@@ -10,6 +10,7 @@ CREATE TABLE matches (
   user2Hand VARCHAR NOT NULL,
   isActive BOOLEAN NOT NULL
 );
+
 CREATE TABLE matchinfo(
   id IDENTITY,
   user1 INT NOT NULL,

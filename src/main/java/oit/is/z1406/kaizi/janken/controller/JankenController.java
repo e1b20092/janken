@@ -5,12 +5,9 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-//import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.PathVariable;
-//import org.springframework.web.bind.annotation.PostMapping;
-//import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import oit.is.z1406.kaizi.janken.model.Entry;
@@ -38,21 +35,20 @@ public class JankenController {
     String loginUser = prin.getName();
     model.addAttribute("loginUser", loginUser);
 
-    this.room.addUser(loginUser);
-    model.addAttribute("room", this.room);
-
     ArrayList<User> user = userMapper.selectAllUserName();
     model.addAttribute("users", user);
 
     ArrayList<Match> matches = matchMapper.selectAllMatches();
     model.addAttribute("Match", matches);
 
+    ArrayList<MatchInfo> matchinfo = matchinfoMapper.selectActiveMatchInfo();
+    model.addAttribute("MatchInfo", matchinfo);
+
     return "janken.html";
   }
 
   @GetMapping("/wait")
-  public String sample2(@RequestParam Integer id, @RequestParam String hand, @RequestParam String re, Principal prin,
-      ModelMap model) {
+  public String sample2(@RequestParam Integer id, @RequestParam String hand, Principal prin, ModelMap model) {
     model.addAttribute("te", hand);
 
     String loginUser = prin.getName();
@@ -60,9 +56,6 @@ public class JankenController {
 
     this.room.addUser(loginUser);
     model.addAttribute("room", this.room);
-
-    String res = "You " + re;
-    model.addAttribute("result", res);
 
     User users = userMapper.selectById(id);
     model.addAttribute("users", users);
@@ -73,8 +66,9 @@ public class JankenController {
     matchinfo.setUser1(user1.getId());
     matchinfo.setUser2(user2.getId());
     matchinfo.setUser1Hand(hand);
-    matchinfo.setisActive(true);
+    matchinfo.setIsActive(true);
     matchinfoMapper.insertMatchInfo(matchinfo);
+    model.addAttribute("MatchInfo", matchinfo);
 
     return "wait.html";
   }
@@ -86,15 +80,6 @@ public class JankenController {
 
     User users = userMapper.selectById(id);
     model.addAttribute("users", users);
-
-    // Match match = new Match();
-    // User user1 = userMapper.selectByName(loginUser);
-    // User user2 = userMapper.selectById(id);
-    // match.setUser1(user1.getId());
-    // match.setUser2(user2.getId());
-    // match.setUser1Hand(hand);
-    // match.setUser2Hand("Gu");
-    // matchMapper.insertMatch(match);
 
     return "match.html";
   }
